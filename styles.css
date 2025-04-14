@@ -87,9 +87,12 @@ body {
 }
 
 h1 {
-    font-size: 2rem;
-    margin-bottom: 1rem;
-    color: white; 
+    font-size: 2.25rem;
+    margin-bottom: 1.5rem;
+    color: #f5e9ff;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+    padding-bottom: 0.6rem;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.3);
 }
 
 header {
@@ -124,9 +127,12 @@ header:hover {
 }
 
 .gallery h1 {
-    font-size: 2rem;
-    margin-bottom: 1rem;
-    color: white;
+    font-size: 2.25rem;
+    margin-bottom: 1.5rem;
+    color: #f5e9ff;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+    padding-bottom: 0.6rem;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.3);
 }
 
 .gallery p {
@@ -245,6 +251,15 @@ header:hover {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
+.skills h1 {
+    font-size: 2.25rem;
+    margin-bottom: 1.5rem;
+    color: #f5e9ff;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+    padding-bottom: 0.6rem;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+}
+
 .skills:hover {
     transform: scale(1.015);
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
@@ -293,6 +308,15 @@ header:hover {
     background: rgba(25, 0, 50, 0.6); 
 }
 
+.cv h1 {
+    font-size: 2.25rem;
+    margin-bottom: 1.5rem;
+    color: #f5e9ff;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+    padding-bottom: 0.6rem;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+}
+
 .cv:hover {
     transform: scale(1.015);
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
@@ -328,7 +352,12 @@ header:hover {
 }
 
 .text-analysis h1 {
-    color: white;
+    font-size: 2.25rem;
+    margin-bottom: 1.5rem;
+    color: #f5e9ff;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+    padding-bottom: 0.6rem;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.3);
 }
 
 textarea {
