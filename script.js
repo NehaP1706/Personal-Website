@@ -68,7 +68,7 @@ function getPronounsCount(text) {
     const pronouns = {
         personal: ['i', 'you', 'he', 'she', 'it', 'we', 'they', 'me', 'him', 'her', 'us', 'them'],
         possessive: ['my', 'your', 'his', 'her', 'its', 'our', 'their', 'mine', 'yours', 'hers', 'ours', 'theirs'],
-        reflexive: ['myself', 'yourself', 'himself', 'herself', 'itself', 'ourselves', 'themselves']
+        reflexive: ['myself', 'yourself', 'himself', 'herself', 'itself', 'ourselves', 'themselves', 'ourself']
     };
     const words = text.toLowerCase().split(/\s+/);
     const count = {
@@ -90,7 +90,7 @@ function getPronounsCount(text) {
 }
 
 function getPrepositionsCount(text) {
-    const prepositions = ['in', 'on', 'at', 'by', 'with', 'under', 'over', 'between', 'through', 'during'];
+    const prepositions = ['about', 'despite', 'above', 'down', 'past', 'across', 'around', 'after', 'except', 'since', 'against', 'for', 'than', 'along', 'from' ,  'among', 'in', 'on', 'at', 'around', 'inside', 'toward', 'as', 'into', 'like', 'underneath', 'before', 'near', 'by', 'with', 'under', 'over', 'between', 'through', 'during', 'behind', 'of', 'until', 'below', 'off', 'up', 'beneath', 'upon', 'beside', 'via', 'between', 'with', 'beyond', 'by', 'outside'];
     const words = text.toLowerCase().split(/\s+/);
     const count = {};
 
