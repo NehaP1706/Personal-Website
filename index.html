@@ -3,113 +3,1141 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Personal Website</title>
-    <link rel="stylesheet" href="styles.css">
-    <script src="script.js"></script>
+    <title>Neha Prabhu - Portfolio</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Playfair+Display:wght@700&display=swap');
+
+        :root {
+            --primary: #8b5cf6;
+            --secondary: #ec4899;
+            --accent: #3b82f6;
+            --dark: #0f172a;
+            --light: #f8fafc;
+            --glass: rgba(255, 255, 255, 0.1);
+            --shadow: rgba(0, 0, 0, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #1a0b2e 0%, #2d1b4e 100%);
+            color: var(--light);
+            line-height: 1.6;
+            overflow-x: hidden;
+            transition: background 0.5s ease;
+        }
+
+        body.light-mode {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        /* Animated background particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            animation: float 15s infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100vh) translateX(100px); opacity: 0; }
+        }
+
+        /* Navbar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 1rem 2rem;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            padding: 0.5rem 2rem;
+            background: rgba(15, 23, 42, 0.95);
+        }
+
+        .nav-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea 0%, #ec4899 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .theme-toggle {
+            background: var(--glass);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: var(--light);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.2rem;
+        }
+
+        .theme-toggle:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.1);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-content {
+            text-align: center;
+            max-width: 800px;
+            padding: 2rem;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease;
+            background: linear-gradient(135deg, #fff 0%, #ec4899 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease 0.2s backwards;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            animation: fadeInUp 1s ease 0.4s backwards;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            box-shadow: 0 10px 30px rgba(139, 92, 246, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(139, 92, 246, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-secondary:hover {
+            background: white;
+            color: var(--dark);
+            transform: translateY(-3px);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Section styling */
+        section {
+            margin-bottom: 6rem;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            margin-bottom: 3rem;
+            text-align: center;
+            position: relative;
+            display: block;
+            width: 100%;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 2px;
+        }
+
+        /* About Section */
+        .about-content {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 3rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .about-content:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4);
+        }
+
+        .about-content p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.95);
+        }
+
+        /* Gallery */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 2rem;
+            align-items: start;
+        }
+
+        .profile-showcase {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            cursor: pointer;
+            height: 600px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .profile-showcase:hover {
+            transform: scale(1.02);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+        }
+
+        .profile-showcase img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center top;
+            transition: transform 0.5s ease;
+        }
+
+        .profile-showcase:hover img {
+            transform: scale(1.1);
+        }
+
+        .other-images {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            cursor: pointer;
+            height: 285px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05) rotate(2deg);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+            padding: 2rem;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            transform: translateY(0);
+        }
+
+        /* Education Timeline */
+        .timeline {
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 100%;
+            background: linear-gradient(180deg, var(--primary), var(--secondary));
+        }
+
+        .timeline-item {
+            display: flex;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .timeline-item:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .timeline-content {
+            width: 45%;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .timeline-content:hover {
+            transform: scale(1.05);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 20px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            border: 4px solid var(--dark);
+            z-index: 1;
+        }
+
+        .timeline-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: #fff;
+        }
+
+        .timeline-content .date {
+            color: var(--secondary);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .timeline-content ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .timeline-content li {
+            padding: 0.3rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .timeline-content li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--secondary);
+        }
+
+        /* Skills */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .skill-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+        }
+
+        .skill-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+        }
+
+        .skill-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: #fff;
+        }
+
+        .skill-level {
+            font-weight: 600;
+            color: var(--secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        /* Projects */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+        }
+
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+            gap: 1rem;
+        }
+
+        .project-card h3 {
+            font-size: 1.4rem;
+            color: #fff;
+            margin: 0;
+            line-height: 1.3;
+        }
+
+        .project-tag {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .project-tech {
+            color: var(--secondary);
+            font-weight: 600;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .project-details {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .project-details li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .project-details li::before {
+            content: '▹';
+            position: absolute;
+            left: 0;
+            color: var(--secondary);
+            font-size: 1.2rem;
+        }
+
+        /* CV Section */
+        .cv-section {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 4rem;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .cv-section p {
+            max-width: 800px;
+            margin: 0 auto 2rem;
+        }
+
+        /* Lightbox */
+        .lightbox {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.95);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .lightbox.active {
+            display: flex;
+        }
+
+        .lightbox img {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 10px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 3rem;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .lightbox-close:hover {
+            transform: scale(1.2) rotate(90deg);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(15, 23, 42, 0.9);
+            text-align: center;
+            padding: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        footer a {
+            color: var(--secondary);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        footer a:hover {
+            color: var(--primary);
+        }
+
+        /* Back to top */
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border: none;
+            border-radius: 50%;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            box-shadow: 0 10px 30px rgba(139, 92, 246, 0.3);
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(139, 92, 246, 0.5);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .hero p { font-size: 1rem; }
+            .section-title { font-size: 2rem; }
+            .timeline::before { left: 0; }
+            .timeline-item { flex-direction: column !important; }
+            .timeline-content { width: 100%; margin-left: 2rem; }
+            .timeline-dot { left: 0; transform: translateX(0); }
+            .nav-links { display: none; }
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+            .profile-showcase {
+                height: 400px;
+            }
+            .other-images {
+                grid-template-columns: 1fr;
+            }
+            .gallery-item {
+                height: 250px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <nav class="navbar">
-        <ul>
-            <li><a href="#about-me">About Me</a></li>
-            <li><a href="#gallery">Gallery</a></li>
-            <li><a href="#education">Education</a></li>
-            <li><a href="#skills">Technical Skills</a></li>
-            <li><a href="#cv">CV</a></li>
-        </ul>
+    <!-- Animated particles -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-content">
+            <div class="logo">NP</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#gallery">Gallery</a></li>
+                <li><a href="#education">Education</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#cv">CV</a></li>
+            </ul>
+            <button class="theme-toggle" id="theme-toggle">🌙</button>
+        </div>
     </nav>
 
-    <div class="container">
-        <header id="about-me">
-            <h1>About Me</h1>
-            <p>
-                I am a BTech CSE Second Year student at IIITH looking forward to learning and gaining some experience in web development and occupational coding. I'm interested in working with people to build projects in IoT, application development, and processor design. I am looking forward to exploring various career opportunities. I am an amateur dancer and artist, who occasionally takes part in these activities. I spend my leisure time eating food and catching up on sleep.
-            </p>
-        </header>
-
-        <div class="gallery" id="gallery">
-            <h1>Gallery</h1>
-            <p>I hail from the coastal side of Karnataka that is filled with beautiful beaches and mesmerising traditions.</p>
-            <div class="image-gallery">
-                <img src="profile.jpg" alt="Profile_picture" class="profile-img">
-                <a href="https://www.instagram.com/prasanna_perdoor/" target="_blank">
-                    <img src="Ratotsava.jpeg" alt="Perdoor Ratotsava">
-                    <img src="Rat.jpeg" alt="Perdoor Ratotsava">
-                </a>
-                <a href="https://karnatakatourism.org/" target="_blank">
-                    <img src="Kapu_1.jpg" alt="Udupi Beaches">
-                </a>
-                <a href="https://en.wikipedia.org/wiki/Udupi_Sri_Krishna_Matha" target="_blank">
-                    <img src="Krishna-temple1.webp" alt="Udupi temples">
-                </a>
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>Neha Prabhu</h1>
+            <p>BTech CSE Student | Developer | Artist | Dancer</p>
+            <div class="hero-buttons">
+                <a href="#about" class="btn btn-primary">Learn More</a>
+                <a href="#cv" class="btn btn-secondary">Download CV</a>
             </div>
         </div>
-        
-        <div class="education" id="education">
-            <h1>Education</h1>
-            <ol>
-                <li class="section">
-                    <strong>COLLEGE:</strong> IIITH<br>
-                    <strong>DEGREE:</strong> BTech in CSE<br>
-                    <strong>BATCH:</strong> 2024 - 2028
-                </li>
-        
-                <li class="section">
-                    <strong>PRE-UNIVERSITY COLLEGE:</strong> Deeksha CFL<br>
-                    <strong>COURSE:</strong> JEE Mains and Advanced<br>
-                    <strong>BATCH:</strong> 2022 - 2024<br>
-                    <strong>ACHIEVEMENTS:</strong>
-                    <ul>
-                        <li>Mains #1512</li>
-                        <li>Advance #2828</li>
-                        <li>KCET #33</li>
-                        <li>COMEDK #8</li>
-                        <li>BOARD #5</li>
-                        <li>MaHe #3</li>
-                    </ul>
-                </li>
-        
-                <li class="section">
-                    <strong>SCHOOL:</strong> Vagdevi Vilas School, Marathahalli<br>
-                    <strong>BATCH:</strong> 2010 - 2022<br>
-                    <strong>ACHIEVEMENTS:</strong>
-                    <ul>
-                        <li> 5 year Olympiad Level-1 Qualifier</li>
-                        <li> CBSE BOARD 98.8%</li>
-                    </ul>
-                </li>
-        
-                <li class="section">
-                    <strong>FOUNDATIONAL COACHING:</strong> Scholar Minds, Kaggadasapura<br>
-                    <strong>BATCH:</strong> 2015 - 2022<br>
-                    <strong>COURSE:</strong> Olympiad Mathematics and Physics
-                </li>
-            </ol>
-        </div>
-        
-        <div class="skills" id="skills">
-            <h1>Technical Skills</h1>
-            <ul>
-                <li> C - Proficient with coherent understanding and competitive skills with major data structures and algorithms.</li>
-                <li> C++ - Novice due to familiarity with C, learning implementations and new structures with time.</li>
-                <li> Python - Intermediate with functional programming and data structures, yet to explore GUI and library applications.</li>
-                <li> Bash - Intermediate with functional programming and useful commands.</li>
-                <li> HTML, CSS and JavaScript - Beginner with basic knowledge, an ever expanding skill-set.</li>
-                <li> REST API, Node.js - Beginner with server applications and back-end development.</li>
-            </ul>
-        </div>
+    </section>
 
-        <div class="cv" id="cv">
-            <h1>CV</h1>
-            <a href="CV.pdf" target="_blank">
-                <button class="cv-btn">Open CV</button>
-            </a>
-        </div>       
+    <!-- Main Content -->
+    <div class="container">
+        <!-- About Section -->
+        <section id="about">
+            <h2 class="section-title">About Me</h2>
+            <div class="about-content">
+                <p>
+                    I am a BTech CSE Second Year student at IIIT Hyderabad with a CGPA of 9.78, passionate about systems programming, distributed systems, and edge AI. I've worked on building high-performance distributed file systems, custom shells, and AI-powered applications. My experience spans from full-stack development to low-level systems programming, with a strong foundation in C, C++, and Python. Beyond coding, I'm a Bharatanatyam diploma holder and an avid fine arts enthusiast, bringing creativity to both my technical work and personal pursuits.
+                </p>
+            </div>
+        </section>
 
-        <footer class="footer">
-            <p>© 2025 <a href="https://github.com/NehaP1706" target="_blank">Neha Prabhu</a>.</p>
-        </footer>
-        
+        <!-- Gallery Section -->
+        <section id="gallery">
+            <h2 class="section-title">Gallery</h2>
+            <p style="text-align: center; margin-bottom: 2rem; font-size: 1.1rem;">I hail from the coastal side of Karnataka filled with beautiful beaches and mesmerising traditions.</p>
+            <div class="gallery-grid">
+                <div class="profile-showcase" onclick="openLightbox('profile.jpg')">
+                    <img src="profile.jpg" alt="Profile picture" loading="lazy">
+                    <div class="gallery-overlay">
+                        <h3>Profile</h3>
+                    </div>
+                </div>
+                <div class="other-images">
+                    <div class="gallery-item" onclick="openLightbox('Ratotsava.jpeg')">
+                        <img src="Ratotsava.jpeg" alt="Perdoor Ratotsava" loading="lazy">
+                        <div class="gallery-overlay">
+                            <h3>Perdoor Ratotsava</h3>
+                        </div>
+                    </div>
+                    <div class="gallery-item" onclick="openLightbox('Rat.jpeg')">
+                        <img src="Rat.jpeg" alt="Ratotsava Festival" loading="lazy">
+                        <div class="gallery-overlay">
+                            <h3>Festival Celebration</h3>
+                        </div>
+                    </div>
+                    <div class="gallery-item" onclick="openLightbox('Kapu_1.jpg')">
+                        <img src="Kapu_1.jpg" alt="Udupi Beaches" loading="lazy">
+                        <div class="gallery-overlay">
+                            <h3>Udupi Beaches</h3>
+                        </div>
+                    </div>
+                    <div class="gallery-item" onclick="openLightbox('Krishna-temple1.webp')">
+                        <img src="Krishna-temple1.webp" alt="Udupi Temple" loading="lazy">
+                        <div class="gallery-overlay">
+                            <h3>Udupi Temple</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Education Timeline -->
+        <section id="education">
+            <h2 class="section-title">Education</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>IIITH</h3>
+                        <div class="date">2024 - 2028</div>
+                        <p><strong>BTech in Computer Science & Engineering</strong></p>
+                    </div>
+                    <div class="timeline-dot"></div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>Deeksha CFL</h3>
+                        <div class="date">2022 - 2024</div>
+                        <p><strong>Pre-University (JEE)</strong></p>
+                        <ul>
+                            <li>JEE Mains #1512</li>
+                            <li>JEE Advanced #2828</li>
+                            <li>KCET #33</li>
+                            <li>COMEDK #8</li>
+                            <li>BOARD #5</li>
+                            <li>MaHe #3</li>
+                        </ul>
+                    </div>
+                    <div class="timeline-dot"></div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>Vagdevi Vilas School</h3>
+                        <div class="date">2010 - 2022</div>
+                        <ul>
+                            <li>5 year Olympiad Level-1 Qualifier</li>
+                            <li>CBSE Board: 98.8%</li>
+                        </ul>
+                    </div>
+                    <div class="timeline-dot"></div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>Scholar Minds</h3>
+                        <div class="date">2015 - 2022</div>
+                        <p><strong>Olympiad Math & Physics</strong></p>
+                    </div>
+                    <div class="timeline-dot"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills">
+            <h2 class="section-title">Technical Skills</h2>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <h3>C</h3>
+                    <div class="skill-level">Proficient</div>
+                    <p>Coherent understanding and competitive skills with major data structures and algorithms.</p>
+                </div>
+                <div class="skill-card">
+                    <h3>C++</h3>
+                    <div class="skill-level">Proficient</div>
+                    <p>Strong foundation with advanced implementations and competitive programming.</p>
+                </div>
+                <div class="skill-card">
+                    <h3>Python</h3>
+                    <div class="skill-level">Intermediate</div>
+                    <p>Experience with FastAPI, data science libraries, and automation scripts.</p>
+                </div>
+                <div class="skill-card">
+                    <h3>Bash & SQL</h3>
+                    <div class="skill-level">Intermediate</div>
+                    <p>Proficient in shell scripting and database management with MySQL.</p>
+                </div>
+                <div class="skill-card">
+                    <h3>Web Development</h3>
+                    <div class="skill-level">Intermediate</div>
+                    <p>Full-stack development with FastAPI, HTML, CSS, and JavaScript.</p>
+                </div>
+                <div class="skill-card">
+                    <h3>Systems & Tools</h3>
+                    <div class="skill-level">Intermediate</div>
+                    <p>Git, Docker, Linux Systems, Distributed Systems, and Edge AI.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects">
+            <h2 class="section-title">Projects</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3>Group Trip & Expense Planner</h3>
+                        <span class="project-tag">Full-Stack</span>
+                    </div>
+                    <p class="project-tech">FastAPI • MySQL • AI Integration</p>
+                    <ul class="project-details">
+                        <li>Developed a comprehensive trip planning platform using FastAPI and MySQL relational database</li>
+                        <li>Integrated AI-powered chatbot for real-time assistance and interactive map service</li>
+                        <li>Implemented expense splitting services to optimize cost distribution among travel groups</li>
+                    </ul>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3>Distributed Network File System (NFS)</h3>
+                        <span class="project-tag">Systems</span>
+                    </div>
+                    <p class="project-tech">C • Distributed Systems • Data Structures</p>
+                    <ul class="project-details">
+                        <li>Engineered high-performance file-sharing system using Trie structure for O(L) lookup</li>
+                        <li>Reduced network latency with LRU caching for frequently accessed file metadata</li>
+                        <li>Built custom Vim-like text editor for real-time multi-user file manipulation</li>
+                    </ul>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3>Edge Orchestrator</h3>
+                        <span class="project-tag">Edge AI/ML</span>
+                    </div>
+                    <p class="project-tech">Reinforcement Learning • Qualcomm NPU • Python</p>
+                    <ul class="project-details">
+                        <li>Developed multi-agentic system using RL to orchestrate compute across edge devices</li>
+                        <li>Optimized end-to-end latency with dynamic task allocation based on network conditions</li>
+                        <li>Deployed Generative AI models on Qualcomm QIDK devices with NPU acceleration</li>
+                    </ul>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3>Oxy - Custom Shell & Network Tool</h3>
+                        <span class="project-tag">Operating Systems</span>
+                    </div>
+                    <p class="project-tech">C • Unix System Calls • TCP/IP</p>
+                    <ul class="project-details">
+                        <li>Built custom CLI interpreter using low-level Unix system calls (fork, exec, wait)</li>
+                        <li>Implemented TCP/IP networking for secure terminal-to-terminal messaging</li>
+                        <li>Designed packet sniffing tool with custom filters for OSI model layer inspection</li>
+                    </ul>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3>Patient Health Monitoring Dashboard</h3>
+                        <span class="project-tag">IoT</span>
+                    </div>
+                    <p class="project-tech">IoT Sensors • Real-time Monitoring</p>
+                    <ul class="project-details">
+                        <li>IoT sensor-integrated dashboard monitoring heart rate and blood pressure</li>
+                        <li>Gyroscopic movement tracking for fall detection and emergency alerts</li>
+                        <li>Real-time data visualization and health trend analysis</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- CV Section -->
+        <section id="cv">
+            <div class="cv-section">
+                <h2 class="section-title">Curriculum Vitae</h2>
+                <p style="margin-bottom: 2rem; font-size: 1.1rem;">Download my complete CV to learn more about my experience and qualifications.</p>
+                <a href="CV.pdf" target="_blank" class="btn btn-primary">Download CV</a>
+            </div>
+        </section>
     </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2025 <a href="https://github.com/NehaP1706" target="_blank" rel="noopener">Neha Prabhu</a>. All rights reserved.</p>
+    </footer>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox">
+        <button class="lightbox-close" onclick="closeLightbox()">×</button>
+        <img id="lightbox-img" alt="">
+    </div>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop">↑</button>
+
+    <script>
+        // Create animated particles
+        const particlesContainer = document.getElementById('particles');
+        for (let i = 0; i < 50; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 15 + 's';
+            particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+            particlesContainer.appendChild(particle);
+        }
+
+        // Intersection Observer for sections
+        const sections = document.querySelectorAll('section');
+        const observerOptions = {
+            threshold: 0.15,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const sectionObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        sections.forEach(section => sectionObserver.observe(section));
+
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Active nav link
+        const navLinks = document.querySelectorAll('.nav-links a');
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (scrollY >= sectionTop - 0.5) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').slice(1) === current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Smooth scroll for nav links
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const target = document.querySelector(link.getAttribute('href'));
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
+
+        // Lightbox
+        function openLightbox(src) {
+            const lightbox = document.getElementById('lightbox');
+            const img = document.getElementById('lightbox-img');
+            img.src = src;
+            lightbox.classList.add('active');
+        }
+
+        function closeLightbox() {
+            const lightbox = document.getElementById('lightbox');
+            lightbox.classList.remove('active');
+        }
+
+        document.getElementById('lightbox').addEventListener('click', (e) => {
+            if (e.target.id === 'lightbox') {
+                closeLightbox();
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeLightbox();
+            }
+        });
+
+        // Back to top button
+        const backToTop = document.getElementById('backToTop');
+        
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('theme-toggle');
+        let isLight = false;
+
+        themeToggle.addEventListener('click', () => {
+            isLight = !isLight;
+            if (isLight) {
+                themeToggle.textContent = '🌞';
+                document.body.classList.add('light-mode');
+            } else {
+                themeToggle.textContent = '🌙';
+                document.body.classList.remove('light-mode');
+            }
+        });
+
+        // Smooth reveal for hero section
+        window.addEventListener('load', () => {
+            document.querySelector('.hero').style.opacity = '1';
+        });
+    </script>
 </body>
 </html>
-
